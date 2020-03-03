@@ -18,6 +18,9 @@ def get_day5_data():
 
     delta = datetime.timedelta(hours=9)
     for i, per_dt in enumerate(data['list']):
+        if i == 5:
+            break
+
         sub_dt = {}
         main_dt = per_dt['main']
         temp = main_dt['temp']
@@ -38,10 +41,5 @@ def get_day5_data():
         date_time = date_time + delta
         date_time = date_time.strftime('%Y-%m-%d %H:%M:%S')
         sub_dt['Datetime'] = date_time
-
         forecast_dt[i] = sub_dt
-    w_txt = """
-Temperature is {}
-Weather is {}
-    """.format(forecast_dt[0]['Temperature'], forecast_dt[0]['Weather'])
-    return w_txt
+    return forecast_dt

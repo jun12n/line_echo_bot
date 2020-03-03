@@ -57,33 +57,35 @@ def callback():
 def handle_text_message(event):
     # メッセージでもテキストの場合はオウム返しする
     if event.message.text == 'weather':
-        text = get_day5_data()
+        all_data = get_day5_data()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=text)
+            make_text_template(all_data=all_data)
         )
     else:
         line_bot_api.reply_message(
             event.reply_token,
             [
                 TextSendMessage(text=event.message.text),
-                TextSendMessage(text='Success')
+                TextSendMessage(text='Echo!')
             ]
         )
 
-# def send_text(event):
-#     # if weather is true
-#     if event.message.text == 'weather':
-#         weather_txt = get_day5_data()
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text=type(weather_txt))
-#         )
-#     else:
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text=event.message.text)
-#         )
+
+def make_text_template(all_data):
+    text_list = []
+    for i in all_data:
+        if i['Weather'] == 'Rain':
+            emoji = chr(0x1000AA)
+        elif i['Weather'] == 'Clouds':
+            emoji = chr(0x1000AC)
+        else:
+            emoji = chr(0x1000A9)
+        text = """Date: {date}
+天気は、{weather}{emoji}
+温度は、{temperature}""".format(date=i['Datetime'], weather=i['Weather'], emoji=emoji, temperature=i['Temperature'])
+        text_list.append(TextSendMessage(text=text))
+    return text_list
 
 
 if __name__ == '__main__':
