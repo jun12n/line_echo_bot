@@ -1,12 +1,15 @@
 import requests
 import datetime
+import json
 import os
 
 # CURRENT_URL = 'http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&lang=ja&APPID={key}'
-api_key = os.getenv('API_KEY', None)
+# api_key = os.getenv('API_KEY', None)
+api_key = '4b20be5e5cb0d0906e861a0aabd5f104'
 
 
 def get_day5_data():
+    global w_txt
     DAY5_URL = 'http://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&lang=ja&appid={key}'
     CITY_NAME = 'Kobe'
     forecast_dt = {}
@@ -35,8 +38,9 @@ def get_day5_data():
         date_txt = per_dt['dt_txt']
         date_time = datetime.datetime.strptime(date_txt, '%Y-%m-%d %H:%M:%S')
         date_time = date_time + delta
+        date_time = date_time.strftime('%Y-%m-%d %H:%M:%S')
         sub_dt['Datetime'] = date_time
 
         forecast_dt[i] = sub_dt
-    return forecast_dt
-
+        w_txt = json.dumps(forecast_dt, indent=4)
+    return w_txt
