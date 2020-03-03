@@ -52,7 +52,7 @@ def callback():
 
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
-        get_weather()
+        get_weather(event)
 
         if not isinstance(event, MessageEvent):
             continue
