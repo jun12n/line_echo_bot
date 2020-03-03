@@ -55,9 +55,10 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     # メッセージでもテキストの場合はオウム返しする
+    text = '{}'.format(type(event.message.text))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='aaaaa')
+        TextSendMessage(text=text)
     )
 # def send_text(event):
 #     # if weather is true
