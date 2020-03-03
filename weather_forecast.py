@@ -57,3 +57,10 @@ def make_text_template(all_data):
             emoji = chr(0x1000A9)
     return text_list
 
+
+import re
+text = 'abcweatherbrbrah'
+if re.findall('天気|weather', text):
+    print('contain')
+else:
+    print('not')
