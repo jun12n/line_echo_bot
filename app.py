@@ -85,7 +85,7 @@ def make_text_template(all_data):
 天気は、{weather}{emoji}
 降水量は、{volume}
 温度は、{temperature}""".format(date=data['Datetime'], weather=data['Weather'],
-                            volume=['Rain_volume'], emoji=emoji, temperature=data['Temperature'])
+                            volume=data['Rain_volume'], emoji=emoji, temperature=data['Temperature'])
         text_list.append(TextSendMessage(text=text))
     return text_list
 

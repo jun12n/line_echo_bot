@@ -3,7 +3,8 @@ import datetime
 import json
 import os
 
-api_key = os.getenv('API_KEY', None)
+# api_key = os.getenv('API_KEY', None)
+api_key = '4b20be5e5cb0d0906e861a0aabd5f104'
 
 
 def get_day5_data():
@@ -39,7 +40,7 @@ def get_day5_data():
         date_txt = per_dt['dt_txt']
         date_time = datetime.datetime.strptime(date_txt, '%Y-%m-%d %H:%M:%S')
         date_time = date_time + delta
-        date_time = date_time.strftime('%Y-%m-%d %H:%M:%S')
+        date_time = date_time.strftime('%m/%d %H:%M')
         sub_dt['Datetime'] = date_time
         forecast_dt.append(sub_dt)
     return forecast_dt
