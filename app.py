@@ -52,13 +52,11 @@ def callback():
 
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
-        get_weather(event)
-
         if not isinstance(event, MessageEvent):
             continue
         if not isinstance(event.message, TextMessage):
             continue
-
+        get_weather(event)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=event.message.text)
@@ -69,12 +67,12 @@ def callback():
 
 def get_weather(event):
     if event.message.text == 'weather':
-        text = get_day5_data()
+        weather_txt = get_day5_data()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=text)
+            TextSendMessage(text=weather_txt)
         )
-    return 'get_weather'
+    return 'OK'
 
 
 if __name__ == '__main__':

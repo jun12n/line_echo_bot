@@ -33,9 +33,10 @@ def get_day5_data():
             rain_vol = 0
         sub_dt['Rain_volume'] = rain_vol
         date_txt = per_dt['dt_txt']
-        date_time = datetime.datetime.fromisoformat(date_txt)
+        date_time = datetime.datetime.strptime(date_txt, '%Y-%m-%d %H:%M:%S')
         date_time = date_time + delta
         sub_dt['Datetime'] = date_time
 
         forecast_dt[i] = sub_dt
     return forecast_dt
+
