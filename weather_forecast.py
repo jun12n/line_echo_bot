@@ -42,6 +42,5 @@ def get_day5_data():
         sub_dt['Datetime'] = date_time
 
         forecast_dt[i] = sub_dt
-        w_txt = json.dumps(forecast_dt, indent=4)
-    return 'w_txt'
-
+    w_txt = json.dumps(forecast_dt, indent=4)
+    return w_txt
