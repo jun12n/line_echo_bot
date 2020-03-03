@@ -74,16 +74,18 @@ def handle_text_message(event):
 
 def make_text_template(all_data):
     text_list = []
-    for i in all_data:
-        if i['Weather'] == 'Rain':
+    for data in all_data:
+        if data['Weather'] == 'Rain':
             emoji = chr(0x1000AA)
-        elif i['Weather'] == 'Clouds':
+        elif data['Weather'] == 'Clouds':
             emoji = chr(0x1000AC)
         else:
             emoji = chr(0x1000A9)
         text = """Date: {date}
 天気は、{weather}{emoji}
-温度は、{temperature}""".format(date=i['Datetime'], weather=i['Weather'], emoji=emoji, temperature=i['Temperature'])
+降水量は、{volume}
+温度は、{temperature}""".format(date=data['Datetime'], weather=data['Weather'],
+                            volume=['Rain_volume'], emoji=emoji, temperature=data['Temperature'])
         text_list.append(TextSendMessage(text=text))
     return text_list
 

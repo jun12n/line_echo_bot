@@ -10,7 +10,7 @@ def get_day5_data():
     global w_txt
     DAY5_URL = 'http://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&lang=ja&appid={key}'
     CITY_NAME = 'Kobe'
-    forecast_dt = {}
+    forecast_dt = []
 
     url = DAY5_URL.format(city=CITY_NAME, key=api_key)
     response = requests.get(url)
@@ -41,5 +41,22 @@ def get_day5_data():
         date_time = date_time + delta
         date_time = date_time.strftime('%Y-%m-%d %H:%M:%S')
         sub_dt['Datetime'] = date_time
-        forecast_dt[i] = sub_dt
+        forecast_dt.append(sub_dt)
     return forecast_dt
+
+
+def make_text_template(all_data):
+    text_list = []
+    for data in all_data:
+        print(data)
+        if data['Weather'] == 'Rain':
+            emoji = chr(0x1000AA)
+        elif data['Weather'] == 'Clouds':
+            emoji = chr(0x1000AC)
+        else:
+            emoji = chr(0x1000A9)
+    return text_list
+
+
+forecast_dt = get_day5_data()
+make_text_template(forecast_dt)
