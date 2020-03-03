@@ -10,6 +10,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+from weather_forecast import get_day5_data
 
 app = Flask(__name__)
 
@@ -56,9 +57,10 @@ def callback():
 def handle_text_message(event):
     # メッセージでもテキストの場合はオウム返しする
     if event.message.text == 'weather':
+        text = get_day5_data()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='get weather')
+            TextSendMessage(text=text)
         )
     else:
         line_bot_api.reply_message(
