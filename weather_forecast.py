@@ -3,7 +3,6 @@ import datetime
 import json
 import os
 
-# CURRENT_URL = 'http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&lang=ja&APPID={key}'
 api_key = os.getenv('API_KEY', None)
 
 
@@ -42,7 +41,7 @@ def get_day5_data():
 
         forecast_dt[i] = sub_dt
     w_txt = """
-    Temperature is {}
-    Weather is {}
+Temperature is {}
+Weather is {}
     """.format(forecast_dt[0]['Temperature'], forecast_dt[0]['Weather'])
     return w_txt
