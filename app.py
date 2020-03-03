@@ -56,23 +56,24 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-        get_weather(event)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=event.message.text)
-        )
+        send_text(event)
 
     return 'OK'
 
 
-def get_weather(event):
+def send_text(event):
+    # if weather is true
     if event.message.text == 'weather':
         weather_txt = get_day5_data()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=type(weather_txt))
         )
-    return 'OK'
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=event.message.text)
+        )
 
 
 if __name__ == '__main__':
