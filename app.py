@@ -70,7 +70,7 @@ def get_weather(event):
         weather_txt = get_day5_data()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=weather_txt)
+            TextSendMessage(text=type(weather_txt))
         )
     return 'OK'
 
