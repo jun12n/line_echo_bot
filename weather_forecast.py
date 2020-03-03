@@ -3,8 +3,7 @@ import datetime
 import json
 import os
 
-# api_key = os.getenv('API_KEY', None)
-api_key = '4b20be5e5cb0d0906e861a0aabd5f104'
+api_key = os.getenv('API_KEY', None)
 
 
 def get_day5_data():
@@ -58,6 +57,3 @@ def make_text_template(all_data):
             emoji = chr(0x1000A9)
     return text_list
 
-
-forecast_dt = get_day5_data()
-make_text_template(forecast_dt)

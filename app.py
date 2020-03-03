@@ -56,7 +56,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     # メッセージでもテキストの場合はオウム返しする
-    if ['weather', '天気'] in event.message.text:
+    if event.message.text in ['weather', '天気']:
         all_data = get_day5_data()
         line_bot_api.reply_message(
             event.reply_token,
