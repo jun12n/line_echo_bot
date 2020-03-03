@@ -1,9 +1,9 @@
 import requests
 import datetime
-
-API_KEY = '4b20be5e5cb0d0906e861a0aabd5f104'
+import os
 
 # CURRENT_URL = 'http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&lang=ja&APPID={key}'
+api_key = os.getenv('API_KEY', None)
 
 
 def get_day5_data():
