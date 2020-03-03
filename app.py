@@ -56,7 +56,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     # メッセージでもテキストの場合はオウム返しする
-    if event.message.text == 'weather':
+    if ['weather', '天気'] in event.message.text:
         all_data = get_day5_data()
         line_bot_api.reply_message(
             event.reply_token,
@@ -81,11 +81,11 @@ def make_text_template(all_data):
             emoji = chr(0x1000AC)
         else:
             emoji = chr(0x1000A9)
-        text = """Date: {date}
+        text = """{date}
 天気は、{weather}{emoji}
-降水量は、{volume}
-温度は、{temperature}""".format(date=data['Datetime'], weather=data['Weather'],
-                            volume=data['Rain_volume'], emoji=emoji, temperature=data['Temperature'])
+降水量は、{volume}mm
+温度は、{temperature}℃""".format(date=data['Datetime'], weather=data['Weather'],
+                             volume=data['Rain_volume'], emoji=emoji, temperature=data['Temperature'])
         text_list.append(TextSendMessage(text=text))
     return text_list
 
