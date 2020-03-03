@@ -10,13 +10,15 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+from weather_forecast import get_day5_data
+
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+# @app.route('/')
+# def hello_world():
+#     return 'Hello World!'
 
 
 # get channel_secret and channel_access_token from your environment variable
@@ -50,6 +52,8 @@ def callback():
 
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
+        get_weather()
+
         if not isinstance(event, MessageEvent):
             continue
         if not isinstance(event.message, TextMessage):
@@ -61,6 +65,16 @@ def callback():
         )
 
     return 'OK'
+
+
+def get_weather(event):
+    if event.message.text == 'weather':
+        text = get_day5_data()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=text)
+        )
+    return 'get_weather'
 
 
 if __name__ == '__main__':
