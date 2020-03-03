@@ -11,7 +11,7 @@ def get_day5_data():
     CITY_NAME = 'Kobe'
     forecast_dt = {}
 
-    url = DAY5_URL.format(city=CITY_NAME, key=API_KEY)
+    url = DAY5_URL.format(city=CITY_NAME, key=api_key)
     response = requests.get(url)
     data = response.json()
 
