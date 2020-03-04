@@ -8,8 +8,8 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import (
     MessageEvent, MessageAction, TextMessage, TextSendMessage, QuickReplyButton, QuickReply)
 
-from unique_function.weather_forecast import get_day5_data, make_template
-from unique_function.rich_menu import create_rich_menu
+from unique_func.weather_forecast import get_day5_data, make_template
+from unique_func.rich_menu import create_rich_menu
 
 
 app = Flask(__name__)
