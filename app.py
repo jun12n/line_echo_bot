@@ -9,7 +9,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, QuickReplyButton, QuickReply, MessageAction
 )
 from weather_forecast import get_day5_data, make_template
 
@@ -56,16 +56,23 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
-    # メッセージでもテキストの場合はオウム返しする
     if re.findall('天気|weather', event.message.text):
-        all_data = get_day5_data()
-        send_text_list = []
-        for text in make_template(all_data):
-            send_text_list.append(TextSendMessage(text=text))
+        locations = ['神戸', '岡山']
+        items = [QuickReplyButton(action=MessageAction(label=f"{loc}", text=f"{loc}の天気")) for loc in locations]
+        messages = TextSendMessage(text='どこの天気ですか？', quick_reply=QuickReply(items=items))
         line_bot_api.reply_message(
             event.reply_token,
-            send_text_list
+            messages=messages
         )
+    # elif event.message.text in:
+    #         all_data = get_day5_data()
+    #         send_text_list = []
+    #         for text in make_template(all_data):
+    #             send_text_list.append(TextSendMessage(text=text))
+    #         line_bot_api.reply_message(
+    #             event.reply_token,
+    #             send_text_list
+    #         )
     else:
         line_bot_api.reply_message(
             event.reply_token,
