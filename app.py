@@ -12,7 +12,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, QuickReplyButton, QuickReply, MessageAction
 )
 from weather_forecast import get_day5_data, make_template
-
+from rich_menu import create_rich_menu
 app = Flask(__name__)
 
 
@@ -34,6 +34,8 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
+
+create_rich_menu()
 
 
 @app.route("/callback", methods=['POST'])
