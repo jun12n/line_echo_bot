@@ -67,7 +67,7 @@ def handle_text_message(event):
     elif event.message.text in locations:
         item = event.message.text
         all_data = get_day5_data(item)
-        send_text_list = ['{}の天気'.format(item)]
+        send_text_list = []
         for text in make_template(all_data):
             send_text_list.append(TextSendMessage(text=text))
         line_bot_api.reply_message(
