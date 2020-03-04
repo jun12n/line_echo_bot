@@ -4,14 +4,13 @@ import json
 import os
 
 api_key = os.getenv('API_KEY', None)
-
-DAY5_URL = 'http://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&lang=ja&appid={key}'
+DAY5_URL = 'http://api.openweathermap.org/data/2.5/forecast?id={city_id}&units=metric&lang=ja&appid={key}'
 
 
 def get_day5_data(location):
-    location = get_location(location)
+    city_id = get_location(location)
     forecast_dt = []
-    url = DAY5_URL.format(city=location, key=api_key)
+    url = DAY5_URL.format(city_id=city_id, key=api_key)
     response = requests.get(url)
     data = response.json()
 
@@ -46,11 +45,11 @@ def get_day5_data(location):
 
 def get_location(location):
     if location == '神戸':
-        return 'Kobe'
+        return 1859171
     elif location == '岡山':
-        return 'Okayama'
+        return 1854383
     elif location == 'New York':
-        return 'New York City'
+        return 5128581
     else:
         return '天気'
 
