@@ -6,12 +6,12 @@ import os
 api_key = os.getenv('API_KEY', None)
 
 DAY5_URL = 'http://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&lang=ja&appid={key}'
-CITY_NAME = 'Kobe'
 
 
-def get_day5_data():
+def get_day5_data(location):
+    location = get_location(location)
     forecast_dt = []
-    url = DAY5_URL.format(city=CITY_NAME, key=api_key)
+    url = DAY5_URL.format(city=location, key=api_key)
     response = requests.get(url)
     data = response.json()
 
@@ -42,6 +42,13 @@ def get_day5_data():
         sub_dt['Datetime'] = date_time
         forecast_dt.append(sub_dt)
     return forecast_dt
+
+
+def get_location(location):
+    if location == '神戸':
+        return 'Kobe'
+    elif location == '岡山':
+        return 'Okayama'
 
 
 def make_template(all_data):
