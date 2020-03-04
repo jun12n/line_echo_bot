@@ -49,6 +49,10 @@ def get_location(location):
         return 'Kobe'
     elif location == '岡山':
         return 'Okayama'
+    elif location == 'New York':
+        return 'New York City'
+    else:
+        return '天気'
 
 
 def make_template(all_data):
