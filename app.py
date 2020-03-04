@@ -11,7 +11,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
-from weather_forecast import get_day5_data
+from weather_forecast import get_day5_data, make_template
 
 app = Flask(__name__)
 
@@ -59,9 +59,12 @@ def handle_text_message(event):
     # メッセージでもテキストの場合はオウム返しする
     if re.findall('天気|weather', event.message.text):
         all_data = get_day5_data()
+        send_text_list = []
+        for text in make_template(all_data):
+            send_text_list.append(TextSendMessage(text=text))
         line_bot_api.reply_message(
             event.reply_token,
-            make_text_template(all_data=all_data)
+            send_text_list
         )
     else:
         line_bot_api.reply_message(
@@ -71,24 +74,6 @@ def handle_text_message(event):
                 TextSendMessage(text='Echo!')
             ]
         )
-
-
-def make_text_template(all_data):
-    text_list = []
-    for data in all_data:
-        if data['Weather'] == 'Rain':
-            emoji = chr(0x1000AA)
-        elif data['Weather'] == 'Clouds':
-            emoji = chr(0x1000AC)
-        else:
-            emoji = chr(0x1000A9)
-        text = """{date}
-天気は、{weather}{emoji}
-降水量は、{volume}mm
-温度は、{temperature}℃""".format(date=data['Datetime'], weather=data['Weather'],
-                             volume=data['Rain_volume'], emoji=emoji, temperature=data['Temperature'])
-        text_list.append(TextSendMessage(text=text))
-    return text_list
 
 
 if __name__ == '__main__':

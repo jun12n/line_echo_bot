@@ -45,22 +45,24 @@ def get_day5_data():
     return forecast_dt
 
 
-def make_text_template(all_data):
+def make_template(all_data):
     text_list = []
     for data in all_data:
-        print(data)
-        if data['Weather'] == 'Rain':
-            emoji = chr(0x1000AA)
-        elif data['Weather'] == 'Clouds':
-            emoji = chr(0x1000AC)
-        else:
-            emoji = chr(0x1000A9)
+        emoji = choose_emoji(data)
+        text = """{date}
+天気は、{weather}{emoji}
+降水量は、{volume}mm
+温度は、{temperature}℃""".format(date=data['Datetime'], weather=data['Weather'],
+                             volume=data['Rain_volume'], emoji=emoji, temperature=data['Temperature'])
+        text_list.append(text)
     return text_list
 
 
-import re
-text = 'abcweatherbrbrah'
-if re.findall('天気|weather', text):
-    print('contain')
-else:
-    print('not')
+def choose_emoji(data):
+    if data['Weather'] == 'Rain':
+        emoji = chr(0x1000AA)
+    elif data['Weather'] == 'Clouds':
+        emoji = chr(0x1000AC)
+    else:
+        emoji = chr(0x1000A9)
+    return emoji
