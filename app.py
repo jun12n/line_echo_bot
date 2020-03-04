@@ -2,24 +2,17 @@ import os
 import sys
 import re
 from flask import Flask, request, abort
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
+
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, QuickReplyButton, QuickReply, MessageAction
-)
-from weather_forecast import get_day5_data, make_template
-from rich_menu import create_rich_menu
+    MessageEvent, MessageAction, TextMessage, TextSendMessage, QuickReplyButton, QuickReply)
+
+from unique_function.weather_forecast import get_day5_data, make_template
+from unique_function.rich_menu import create_rich_menu
+
+
 app = Flask(__name__)
-
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
-
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
@@ -52,7 +45,6 @@ def callback():
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
-
     return 'OK'
 
 

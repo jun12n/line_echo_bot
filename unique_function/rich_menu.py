@@ -32,7 +32,7 @@ def create_rich_menu():
         )
         rich_menu_id = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
         # upload an image for rich menu
-        path = 'static/rich_menu/rich_menu_sample.png'
+        path = '../static/rich_menu/rich_menu_sample.png'
         with open(path, 'rb') as f:
             line_bot_api.set_rich_menu_image(rich_menu_id, "image/png", f)
         # set the default rich menu
